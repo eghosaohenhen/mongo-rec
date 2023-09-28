@@ -1,7 +1,7 @@
 import { Filter, ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
-
+import {PostAuthorNotMatchError} from "./concepts/post"
 import { Post, User, WebSession } from "./app";
 import { PostDoc } from "./concepts/post";
 import { UserDoc } from "./concepts/user";
@@ -62,9 +62,12 @@ class Routes {
 
   @Router.delete("/posts/:_id")
   async deletePost(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    return await Post.delete(_id); 
+    //if (user !== )
     // TODO 3: Delete the post with given _id
     // Make sure the user deleting is the author of the post
-    throw new Error("Not implemented!");
+    //throw new Error("Not implemented!");
   }
 }
 
